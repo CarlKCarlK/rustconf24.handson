@@ -1,4 +1,5 @@
 # Tasks
 
 * [Setup](./setup.md) (Rust, Git, VS Code)
-* WASI "Hello World"
+* [WASM WASI](./wasi.md) "Hello World" & Port
+* [WASM Unknown]

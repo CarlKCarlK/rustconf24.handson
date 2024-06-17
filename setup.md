@@ -56,6 +56,7 @@ Search and install the following extensions:
 
 * Rust-Analyzer (matklad.rust-analyzer)
 * CodeLLDB (vadimcn.vscode-lldb)
+* Live Preview (ms-vscode.live-server)
 
 ## Test Set Up
 
@@ -88,8 +89,14 @@ wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/linu
 wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/linux64/chromedriver-linux64.zip
 unzip chrome-linux64.zip
 unzip chromedriver-linux64.zip
-echo 'export PATH=$PATH:~/.chrome-for-testing/chrome-linux64' >> ~/.bashrc
-echo 'export PATH=$PATH:~/.chrome-for-testing/chromedriver-linux64' >> ~/.bashrc
+
+# Permanently update path
+# echo 'export PATH=$PATH:~/.chrome-for-testing/chrome-linux64' >> ~/.bashrc
+# echo 'export PATH=$PATH:~/.chrome-for-testing/chromedriver-linux64' >> ~/.bashrc
+
+# Temporarily add the directories to the PATH for the current session
+export PATH=$PATH:~/.chrome-for-testing/chrome-linux64:~/.chrome-for-testing/chromedriver-linux64
+
 ```
 
 ### Windows
@@ -109,8 +116,12 @@ Expand-Archive -Path "$HOME\.chrome-for-testing\chrome-win64.zip" -DestinationPa
 
 Expand-Archive -Path "$HOME\.chrome-for-testing\chromedriver-win64.zip" -DestinationPath "$HOME\.chrome-for-testing"
 
-# Permanently update path
-[System.Environment]::SetEnvironmentVariable("Path", $env:PATH + ";$HOME\.chrome-for-testing\chrome-win64;$HOME\.chrome-for-testing\chromedriver-win64", [System.EnvironmentVariableTarget]::User)
+# # Permanently update path
+# [System.Environment]::SetEnvironmentVariable("Path", $env:PATH + ";$HOME\.chrome-for-testing\chrome-win64;$HOME\.chrome-for-testing\chromedriver-win64", [System.EnvironmentVariableTarget]::User)
+
+# Temporary path update
+$env:PATH += ";$HOME\.chrome-for-testing\chrome-win64;$HOME\.chrome-for-testing\chromedriver-win64"
+
 ```
 
 ### Mac

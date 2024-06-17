@@ -10,6 +10,20 @@ cargo install wasm-bindgen-cli
 cargo install wasm-pack
 ```
 
+You should already have Chrome for Test and Chromedriver installed see [Setup](./setup.md). If needed, add them to your path temporarily:
+
+Linux/MacOS:
+
+```bash
+export PATH=$PATH:~/.chrome-for-testing/chrome-linux64:~/.chrome-for-testing/chromedriver-linux64
+```
+
+Windows:
+
+```cmd
+set PATH=%PATH%;%USERPROFILE%\.chrome-for-testing\chrome-win64;%USERPROFILE%\.chrome-for-testing\chromedriver-win64
+```
+
 ## Test Set Up
 
 ```bash
@@ -17,7 +31,7 @@ cargo new hello_wasm_browser
 cd hello_wasm_browser
 ```
 
-Edit `Cargo.toml`
+Edit `Cargo.toml`s
 
 ```toml
 [dependencies]
@@ -77,4 +91,3 @@ console.log div contained:
       left: Ok(2)
      right: Ok(1)
  ```
- 

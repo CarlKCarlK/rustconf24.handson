@@ -129,10 +129,29 @@ $env:PATH += ";$HOME\.chrome-for-testing\chrome-win64;$HOME\.chrome-for-testing\
 Look at <https://googlechromelabs.github.io/chrome-for-testing/> and adapt the Linux method.
 
 ### Testing
+
 Test with
 
 ```bash
 chrome --version
 chromedriver --version
 ```
+
+
+## Web Server for Local Testing
+
+I like VS Codes's "Live Preview" extension. As a simple alternative:
+
+```bash
+cargo install simple-http-server
+```
+
+Then, in a folder that contains an `index.html`, run
+
+```bash
+simple-http-server --ip 127.0.0.2 --port 3000 --index
+```
+
+
+
 

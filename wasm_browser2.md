@@ -126,7 +126,7 @@ Now:
 ```rust
 use std::io::Read;
 
-fn good_turning<R: Read>(reader: BufReader<R>) -> Result<(usize, usize), io::Error> {
+fn good_turning<R: BufReader>(reader: R) -> Result<(usize, usize), io::Error> {
 ```
 
 The wrapper function `good_turing_js` now works on slices of `u8`:

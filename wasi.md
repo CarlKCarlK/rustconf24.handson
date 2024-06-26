@@ -113,7 +113,7 @@ pub fn demo_i32_len(range: RangeInclusive<i32>) -> u64 {
 }
 ```
 
-Test again and it works. However, 
+Test again and it works. However,
 
 > No feature is complete until it is added to the tests.
 

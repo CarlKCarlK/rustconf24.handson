@@ -24,6 +24,8 @@ Windows:
 set PATH=%PATH%;%USERPROFILE%\.chrome-for-testing\chrome-win64;%USERPROFILE%\.chrome-for-testing\chromedriver-win64
 ```
 
+You should be able to run `chrome` and see Chrome for Testing.
+
 ## Test Set Up
 
 ```bash
@@ -53,6 +55,7 @@ mod tests {
     use wasm_bindgen_test::wasm_bindgen_test;
     wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
 
+    #[test]
     #[wasm_bindgen_test]
     fn test_wasm() {
         assert_eq!("1".parse(), Ok(1));
@@ -60,11 +63,22 @@ mod tests {
 }
 ```
 
-Run native and test WASM "browser"
+Create `.cargo/config.toml`:
+
+```toml
+[target.wasm32-wasip1]
+runner = "wasmtime run --dir ."
+
+[target.wasm32-unknown-unknown]
+runner = "wasm-bindgen-test-runner"
+```
+
+Run native. Test native and WASM "browser"
 
 ```bash
 cargo run
-wasm-pack test --chrome --headless
+cargo test
+cargo test --target wasm32-unknown-unknown
 ```
 
 Should see
@@ -72,16 +86,13 @@ Should see
 ```text
 Hello, world!
 
-Starting new webdriver session...
-DevTools listening on ws://127.0.0.1:60482/devtools/browser/8d5dccb0-8658-4e26-afed-546eccd8d1a4
-running 1 test
-
-test hello_wasm_browser::tests::test_wasm ... ok
-
+...
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 filtered out
+...
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 filtered out
 ```
 
-If you like, change the test to `"2".parse()`, so it fails. Re-run `wasm-pack test --chrome --headless` and see:
+If you like, change the test to `"2".parse()`, so it fails. Re-run `cargo test --target wasm32-unknown-unknown` and see:
 
 ```text
 test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 filtered out

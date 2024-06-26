@@ -85,7 +85,7 @@ criterion = { version = "0.5.1", features = ["html_reports"], default-features =
 criterion = { version = "0.5.1", features = ["rayon"] }
 ```
 
-Test again and get
+Test again (`cargo test --target wasm32-wasip1`) and get
 
 ```rust
 #[test]
@@ -115,7 +115,7 @@ pub fn demo_i32_len(range: RangeInclusive<i32>) -> u64 {
 
 Test again and it works. However,
 
-> No feature is complete until it is added to the tests.
+**No feature is complete until it is added to the tests.**
 
 Add this to `.github/workflows/ci.yml`
 
@@ -139,4 +139,5 @@ Add this to `.github/workflows/ci.yml`
           run: cargo test --verbose --target wasm32-wasip1
 ```
 
+*OPTIONAL*: 
 Check into Github and see the new wasi test pass.

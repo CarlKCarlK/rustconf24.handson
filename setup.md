@@ -57,6 +57,7 @@ Search and install the following extensions:
 * Rust-Analyzer (matklad.rust-analyzer)
 * CodeLLDB (vadimcn.vscode-lldb)
 * Live Preview (ms-vscode.live-server)
+* GitLens — Git supercharged
 
 ## Test Set Up
 

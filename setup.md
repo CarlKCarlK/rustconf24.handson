@@ -2,13 +2,6 @@
 
 ## Rust
 
-### Check Version and Update
-
-```bash
-rustc --version
-rustup update
-```
-
 ### Install Linux/MacOs/WSL
 
 ```bash
@@ -18,6 +11,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ### Install Windows
 
 Download and run the installer: <https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe>
+
+### Check Version and Update
+
+```bash
+rustc --version
+rustup update
+```
 
 ## Git
 
@@ -79,8 +79,6 @@ We download binaries list on <https://googlechromelabs.github.io/chrome-for-test
 
 ### Linux and WSL
 
-You may need `sudo apt-get install unzip`.
-
 ```bash
 cd ~
 mkdir -p ~/.chrome-for-testing
@@ -96,6 +94,8 @@ unzip chromedriver-linux64.zip
 
 # Temporarily add the directories to the PATH for the current session
 export PATH=$PATH:~/.chrome-for-testing/chrome-linux64:~/.chrome-for-testing/chromedriver-linux64
+
+To test, type `chome` and see Chrome for Testing start.
 
 ```
 
@@ -145,10 +145,23 @@ I like VS Codes's "Live Preview" extension. As a simple alternative:
 cargo install simple-http-server
 ```
 
-Then, in a folder that contains an `index.html`, run
+Then, in `hello_world`, create file `index.html`:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello, World!</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+</body>
+</html>
+```
 
 ```bash
-simple-http-server --ip 127.0.0.2 --port 3000 --index
+simple-http-server --ip 127.0.0.2 --port 3000 --index &
+chrome http://127.0.0.2:3000
 ```
 
 ## `QEMU` Emulator for Embedded
@@ -157,7 +170,13 @@ See the [download page](https://www.qemu.org/download/) for full info.
 
 Here are two handy links:
 
-* Ubuntu: `apt-get install qemu-system`
+* Ubuntu: `sudo apt-get install qemu-system`
 * Windows:
   * <https://qemu.weilnetz.de/w64/> (slow to download).
   * Add `"\C:\Program Files\qemu\"` to your path.
+
+Test with
+
+```bash
+qemu-system-arm --version
+```

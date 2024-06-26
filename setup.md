@@ -137,7 +137,6 @@ chrome --version
 chromedriver --version
 ```
 
-
 ## Web Server for Local Testing
 
 I like VS Codes's "Live Preview" extension. As a simple alternative:
@@ -152,6 +151,13 @@ Then, in a folder that contains an `index.html`, run
 simple-http-server --ip 127.0.0.2 --port 3000 --index
 ```
 
+## `QEMU` Emulator for Embedded
 
+See the [download page](https://www.qemu.org/download/) for full info.
 
+Here are two handy links:
 
+* Ubuntu: `apt-get install qemu-system`
+* Windows:
+  * <https://qemu.weilnetz.de/w64/> (slow to download).
+  * Add `"\C:\Program Files\qemu\"` to your path.

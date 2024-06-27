@@ -1,13 +1,48 @@
 # RangeSetBlaze to WASI and WASM Browser
 
+## Start native RangeSetBlaze
+
+Clone a branch. Create and switch to a new branch. Run tests.
+
+```bash
+cd ~
+git clone --branch rustconf24.0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.wasm1
+cd rustconf24.wasm1
+git switch -c rustconf24.wasm1
+
+cargo test
+```
+
 ## To WASI
 
-* In `.github/ci.yml`, rust WASI test (and 32-bit Ubuntu)
-* In `Cargo.toml`, make `dev-dependencies` and `criterion`, turn off `rayon` feature when `wasm32`.
+Let's just cheat and merge the WASI branch into our branch:
+
+```bash
+git fetch origin rustconf24.wasi:refs/remotes/origin/rustconf24.wasi
+git merge origin/rustconf24.wasi
+
+cargo test --target wasm32-wasip1
+```  
+
+Behind the scenes it is doing:
+
+* In `.github/ci.yml`, adding rust WASI test (and 32-bit Ubuntu)
+* In `Cargo.toml`'s `dev-dependencies`, make `criterion` turn off `rayon` feature when `wasm32`.
 * In `lib.rs` and `tests/integration_tests.rs`, use `u64` rather than `usize`.
 * In `useful.md` add `cargo test --target wasm32-wasip1`.
 
 ## To WASM Browser
+
+Let's cheat again:
+
+```bash
+git fetch origin rustconf24.wasm1:refs/remotes/origin/rustconf24.wasm1
+git merge origin/rustconf24.wasm1
+
+cargo test --target wasm32-unknown-unknown
+```
+
+Behind the scenes it is doing:
 
 * In `.cargo/config.toml`, add
 

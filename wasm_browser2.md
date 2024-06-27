@@ -3,11 +3,12 @@
 ## Native Project: Install, Test, and Run
 
 ```bash
+cd ~
 git clone --branch native_version --single-branch https://github.com/CarlKCarlK/rustconf24-good-turing.git good-turing
 cd good-turing
 cargo test
 cargo run pg100.txt
-cargo run --target wasm32-wasip1 pg100.txt # may need .cargo/config.toml
+cargo run --target wasm32-wasip1 pg100.txt
 ```
 
 Outputs
@@ -42,7 +43,19 @@ wasm-bindgen-test = "0.3.42"
 
 `cargo test` should still work.
 
+## `.cargo/config.toml`
+
+Add
+
+```toml
+[target.wasm32-unknown-unknown]
+runner = "wasm-bindgen-test-runner"
+```
+
+
 ## `lib.rs`
+
+Comment out `fn main`.
 
 At the top, add:
 
@@ -63,7 +76,7 @@ In `mod tests`, add:
 
 Add `#[wasm_bindgen_test]` before `fn test_process_file()`. (Leave `#[test]`, too.)
 
-Run
+Check it:
 
 ```bash
 cargo check --target wasm32-unknown-unknown
@@ -99,14 +112,14 @@ In the tests, remove `#[wasm_bindgen_test]` from `fn test_process_file`. Create 
 These should now work and run both tests natively:
 
 ```bash
-cargo check --target wasm32-unknown-unknown
 cargo test
+cargo check --target wasm32-unknown-unknown
 ```
 
 However, when we run the test in the browser:
 
 ```bash
-wasm-pack test --chrome --headless
+cargo test --target wasm32-unknown-unknown
 ```
 
 We get a run-time error: `Error processing data: operation not supported on this platform` because
@@ -124,9 +137,7 @@ fn good_turning(file_name: &str) -> Result<(usize, usize), io::Error> {
 Now:
 
 ```rust
-use std::io::Read;
-
-fn good_turning<R: BufReader>(reader: R) -> Result<(usize, usize), io::Error> {
+fn good_turning<R: BufRead>(reader: R) -> Result<(usize, usize), io::Error> {
 ```
 
 The wrapper function `good_turing_js` now works on slices of `u8`:
@@ -164,13 +175,13 @@ We update the tests to use `BufReader` and slices of `u8`:
     }
 ```
 
-Comment out `fn main`. Remove any unneeded imports.
+Remove any unneeded imports.
 
 Now, we can run two native tests and one WASM in the browser test with:
 
 ```bash
 cargo test
-wasm-pack test --chrome --headless
+cargo test --target wasm32-unknown-unknown
 ```
 
 ## `index.html`
@@ -181,8 +192,7 @@ Compile to WASM
 wasm-pack build --target web
 ```
 
-
-Update `index.html` to
+Update `index.html` with goal of:
 
 * Call `good_turing_rs`
 * Read bytes instead of text

@@ -1,5 +1,9 @@
 # WASM Browser #1
 
+Related Links:
+
+* [Prerequisite Setup](setup.md)
+
 ## Install
 
 Install the WASM Unknown OS target, bindings to JavaScript, and command-line WASM tool.

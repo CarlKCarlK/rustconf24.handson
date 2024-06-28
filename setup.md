@@ -12,11 +12,12 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 Download and run the installer: <https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe>
 
-### Check Version and Update
+### Check Version and Update (get 'nightly', too, for later)
 
 ```bash
 rustc --version
 rustup update
+rustup toolchain install nightly
 ```
 
 ## Git
@@ -58,6 +59,7 @@ Search and install the following extensions:
 * CodeLLDB (vadimcn.vscode-lldb)
 * Live Preview (ms-vscode.live-server)
 * GitLens — Git supercharged
+* Rust Extension Pack (Swellaby)
 
 ## Test Set Up
 

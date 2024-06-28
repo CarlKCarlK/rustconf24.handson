@@ -1,5 +1,11 @@
 # WASM Browser #2
 
+Related Links:
+
+* [Prerequisite Setup](setup.md)
+* [WASM Browser #1](wasm_browser1.md)
+* [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.wasm1)
+
 ## Native Project: Install, Test, and Run
 
 ```bash
@@ -51,7 +57,6 @@ Add
 [target.wasm32-unknown-unknown]
 runner = "wasm-bindgen-test-runner"
 ```
-
 
 ## `lib.rs`
 
@@ -253,4 +258,36 @@ Serve the web page, open file `pg100.txt` and see
 ```text
 Prediction (words that appear exactly once on even lines): 10,223
 Actual distinct words that appear only on odd lines: 7,967
+```
+
+## Add a WASM for Browser Test CI Test
+
+In `.github/workflows/ci.yml`, add:
+
+```yaml
+  test_wasm_unknown_unknown:
+    name: Test WASM unknown unknown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+      - name: Install wasm-pack
+        run: |
+          curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      - name: Run WASM tests with Chrome
+        run: |
+          rustup target add wasm32-unknown-unknown
+          wasm-pack test --chrome --headless
+```
+
+Check into Github and see the new WASM test pass.
+
+```bash
+git remote remove origin
+gh repo create delete_me_rsb2 --public --source=. --remote=origin
 ```

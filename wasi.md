@@ -1,5 +1,10 @@
 # WASM WASI
 
+Related Links:
+
+* [Prerequisite Setup](setup.md)
+* [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.wasi)
+
 ## Install
 
 ```bash

@@ -1,5 +1,10 @@
 # RangeSetBlaze to WASI and WASM Browser
 
+Related Links:
+
+* [Prerequisite Setup](setup.md)
+* [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.wasm1)
+
 ## Start native RangeSetBlaze
 
 Clone a branch. Create and switch to a new branch. Run tests.

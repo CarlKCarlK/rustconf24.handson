@@ -1,11 +1,25 @@
 # RangeSetBlaze Testing
 
+Related Links:
+
+* [Prerequisite Setup](setup.md)
+* [RangeSetBlaze `no_std` #1](rsb_no_std1.md)
+* [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.nostd)
+
+
 ## Set up
 
 Be sure `QEMU` is installed and on your path. See [setup](setup.md#qemu-emulator-for-embedded).
 
+You should be able to run QEMU.
 
-You should be able to run `qemu-system-arm --version`.
+Continue work in folder `~/rustconf24.nostd`. You `check` should work for `thumbv7m-none-eabi`:
+
+```bash
+qemu-system-arm --version
+cd ~/rustconf24.nostd
+cargo check --target thumbv7m-none-eabi --features alloc --no-default-features
+```
 
 ## Create an Example Embedded Project
 
@@ -79,7 +93,21 @@ fn alloc_error(_layout: Layout) -> ! {
 }
 ```
 
-* Copy `build.rs` and `memory.x` from [cortex-m-quickstart’s GitHub](https://github.com/rust-embedded/cortex-m-quickstart/tree/master) to `tests/embedded/`.
+* Copy `build.rs` and `memory.x` from [cortex-m-quickstart’s GitHub](https://github.com/rust-embedded/cortex-m-quickstart/tree/master) to `tests/embedded/`. For example, on Linux:
+
+```bash
+cd tests/embedded
+wget https://raw.githubusercontent.com/rust-embedded/cortex-m-quickstart/master/build.rs
+wget https://raw.githubusercontent.com/rust-embedded/cortex-m-quickstart/master/memory
+```
+
+Windows:
+
+```cmd
+cd tests/embedded
+powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/rust-embedded/cortex-m-quickstart/master/build.rs' -OutFile 'build.rs'"
+powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/rust-embedded/cortex-m-quickstart/master/memory.x' -OutFile 'memory.x'"
+```
 
 * Create a `tests/embedded/.cargo/config.toml` containing:
 
@@ -103,6 +131,7 @@ members = [".", "tests_common", "tests/wasm-demo", "tests/embedded"]
 ```bash
 cd tests/embedded
 rustup override set nightly # to support #![feature(alloc_error_handler)]
+rustup target add thumbv7m-none-eabi
 cargo run
 ```
 
@@ -112,7 +141,7 @@ It should output the log message: `"-4..=-3, 100..=103"`.
 
 ## CI and Keywords
 
-Add this to `.github/workflows/ci.yml`:
+Add this to main `.github/workflows/ci.yml`:
 
 ```yml
 test_thumbv7m-none-eabi:
@@ -150,3 +179,14 @@ categories = ["data-structures", "no-std", "wasm"]
 ```
 
 The spelling (`no_std` and `no-std`) is important. The maximum number of keywords is five; likewise categories.
+
+## Bonus checking CI (Ubuntu)
+
+To change the origin repository on GitHub:
+
+```bash
+sudo apt-get install gh
+gh auth login
+git remote remove origin
+gh repo create delete_me_rsb --public --source=. --remote=origin
+```

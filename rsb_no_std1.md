@@ -1,18 +1,28 @@
 # RangeSetBlaze to `no_std`
 
+Related Links:
+
+* [Prerequisite Setup](setup.md)
+* [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.nostd)
+
+
 ## Start with WASM for Browser version
 
 Clone a branch. Create and switch to a new branch. Run WASM for browser tests.
 
 ```bash
+cd ~
 git clone --branch rustconf24.wasm1 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
 cd rustconf24.nostd
 git switch -c rustconf24.nostd
 
-cargo test --target wasm32-unknown-unknown
+ wasm-pack build tests/wasm-demo --target web
+ cargo test --target wasm32-unknown-unknown
 ```
 
 The WASM for browser tests should succeed.
+
+Also, can run `tests/wasm-demo/index.html` in a browser.
 
 ## Find `no_std`-Compatible Dependencies
 
@@ -23,7 +33,7 @@ rustup target add thumbv7m-none-eabi # one time
 cargo check --target thumbv7m-none-eabi
 ```
 
-We see many errors related to our dependencies.
+We see errors related to our dependencies.
 
 To fix these, first, see what dependencies you are using and which of
 their cargo features you are using.
@@ -35,7 +45,7 @@ cargo tree --edges no-dev --format "{p} {f}"
 Which outputs:
 
 ```text
-range-set-blaze v0.1.6 (C:\deldir\branches\rustconf24.nostd2) 
+range-set-blaze v0.1.6 (C:\deldir\branches\rustconf24.nostd) 
 ├── gen_ops v0.3.0
 ├── itertools v0.13.0 default,use_alloc,use_std
 │   └── either v1.12.0 use_std
@@ -48,11 +58,11 @@ range-set-blaze v0.1.6 (C:\deldir\branches\rustconf24.nostd2)
 
 Cargo features with names like `std` and `use_std` cargo features suggest a need for the standard library. We research each such dependency by, for example, finding it on GitHub and reading its README and `Cargo.toml` files.
 
-We then edit our `Cargo.toml` removing the suspect Cargo features:
+We then edit our `Cargo.toml` removing the suspect Cargo features and adding the `use_alloc` feature to `itertools`:
 
 ```toml
 [dependencies]
-itertools = { version = "0.13.0", default-features = false }
+itertools = { version = "0.13.0", features=["use_alloc"], default-features = false }
 num-integer = { version = "0.1.46", default-features = false }
 num-traits = { version = "0.2.19", default-features = false }
 gen_ops = "0.3.0"
@@ -72,7 +82,7 @@ extern crate alloc;
 
 This says we won't use the standard library, but we will still use allocated memory.
 
-This causes dozens of errors, one for every place we use ``std::``, for example:
+Now `cargo check --target thumbv7m-none-eabi` causes dozens of errors, one for every place we use ``std::``, for example:
 
 ```rust
 use std::cmp::max;
@@ -104,7 +114,7 @@ Our main code now works, but we have 89 new errors in `src\test.rs`. We'll addre
 
 ## Test Code Must Use the Standard Library
 
-In Rust, test code must use the standard library. To allow this, first update `Cargo.toml` by defining and use cargo features `std` and `alloc`:
+In Rust, test code must use the standard library. To allow this, first update `Cargo.toml` by defining and using cargo features `std` and `alloc`:
 
 ```toml
 [lib]
@@ -150,4 +160,3 @@ cargo test
 ```
 
 Edit `useful.md` to include both lines.
-

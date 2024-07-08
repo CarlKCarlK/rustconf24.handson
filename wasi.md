@@ -83,7 +83,7 @@ After looking at `Criterion`'s [`Cargo.toml`](https://github.com/bheisler/criter
 
 ```toml
 # was criterion = { version = "0.5.1", features = ["html_reports"] }
-criterion = { version = "0.5.1", features = ["html_reports"], default-features = false }
+criterion = { version = "0.5.1", features = ["html_reports", "plotters", "cargo_bench_support"], default-features = false }
 
 #...
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
@@ -120,7 +120,7 @@ pub fn demo_i32_len(range: RangeInclusive<i32>) -> u64 {
 
 Test again and it works. However,
 
-**No feature is complete until it is added to the tests.**
+**If a feature isn’t tested, it doesn’t exist.**
 
 Add this to `.github/workflows/ci.yml`
 

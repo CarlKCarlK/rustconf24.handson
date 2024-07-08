@@ -176,7 +176,7 @@ Here are two handy links:
 * Ubuntu: `sudo apt-get install qemu-system`
 * Windows:
   * <https://qemu.weilnetz.de/w64/> (slow to download).
-  * Add `"\C:\Program Files\qemu\"` to your path.
+  * Add `"C:\Program Files\qemu\"` to your path.
 
 Test with
 

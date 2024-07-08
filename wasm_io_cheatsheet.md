@@ -14,6 +14,10 @@
 | Yep!    | `String`           | input, output | Copies memory                                               |
 | Yep!    | `&str`             | input        | Copies memory                                               |
 | Nope    | `&str`, `&[u8]`    | output       | As before, can't return reference types                               |
+
+
+| Allowed | Type             | Where        | Notes                                                                 |
+|---------|------------------|--------------|-----------------------------------------------------------------------|
 | Yep!    | `Vec<u8>`          | input, output | Copies memory                                               |
 | Yep!    | `&[u8]`            | input        | Copies memory                                               |
 | Yep!    | `&mut [u8]`        | input        | Copies memory twice [(link)](https://stackoverflow.com/a/78634853/5976009)                                        |

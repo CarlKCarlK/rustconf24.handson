@@ -6,7 +6,6 @@ Related Links:
 * [RangeSetBlaze `no_std` #1](rsb_no_std1.md)
 * [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.nostd)
 
-
 ## Set up
 
 Be sure `QEMU` is installed and on your path. See [setup](setup.md#qemu-emulator-for-embedded).

@@ -9,14 +9,28 @@ Related Links:
 ## Set up
 
 Be sure `QEMU` is installed and on your path. See [setup](setup.md#qemu-emulator-for-embedded).
-
-You should be able to run QEMU.
-
-Continue work in folder `~/rustconf24.nostd`. You `check` should work for `thumbv7m-none-eabi`:
+You should be able to run QEMU. Test with
 
 ```bash
 qemu-system-arm --version
-cd ~/rustconf24.nostd
+```
+
+Either continue work in folder `~/rustconf24.nostd` or clone the `rustconf24.nostd0` branch:
+
+```bash
+# create project via git
+cd ~
+git clone --branch rustconf24.nostd0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
+cd rustconf24.nostd
+git switch -c rustconf24.nostd
+cargo check --target thumbv7m-none-eabi --features alloc --no-default-features
+```
+
+Test the project with:
+
+```bash
+# cd ~/rustconf24.nostd
+cargo test
 cargo check --target thumbv7m-none-eabi --features alloc --no-default-features
 ```
 

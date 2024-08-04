@@ -5,24 +5,30 @@ Related Links:
 * [Prerequisite Setup](setup.md)
 * [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.nostd)
 
-
 ## Start with WASM for Browser version
 
 Clone a branch. Create and switch to a new branch. Run WASM for browser tests.
 
 ```bash
+# create project via git
 cd ~
 git clone --branch rustconf24.wasm1 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
 cd rustconf24.nostd
 git switch -c rustconf24.nostd
 
- wasm-pack build tests/wasm-demo --target web
+# run wasm tests
  cargo test --target wasm32-unknown-unknown
+ # On Windows, ignore `os error 10004` error.
 ```
 
 The WASM for browser tests should succeed.
 
-Also, can run `tests/wasm-demo/index.html` in a browser.
+```bash
+# build web demo
+wasm-pack build tests/wasm-demo --target web
+# Serve tests/wasm-demo/index.html (e.g. via VS Code Live Server)
+# Can run `tests/wasm-demo/index.html` in a browser.
+```
 
 ## Find `no_std`-Compatible Dependencies
 

@@ -76,7 +76,7 @@ gen_ops = "0.3.0"
 
 Now, `cargo tree --edges no-dev --format "{p} {f}"` shows no suspicious cargo features. Moreover, `cargo check --target thumbv7m-none-eabi` gets through our dependencies. Now, all the  and shows errors in our code.
 
-## Making the Non-Test Code `no_std` (and `alloc`)
+## Making the Main (Non-Test) Code `no_std` (and `alloc`)
 
 At top of the `lib.rs`, add
 

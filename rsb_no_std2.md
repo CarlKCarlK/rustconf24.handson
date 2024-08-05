@@ -23,10 +23,9 @@ cd ~
 git clone --branch rustconf24.nostd0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
 cd rustconf24.nostd
 git switch -c rustconf24.nostd
-cargo check --target thumbv7m-none-eabi --features alloc --no-default-features
 ```
 
-Test the project with:
+Test (std) and check (no_std) the project with:
 
 ```bash
 # cd ~/rustconf24.nostd
@@ -52,11 +51,6 @@ cortex-m-semihosting = "0.5.0"
 panic-halt = "0.2.0"
 # reference to local project
 range-set-blaze = { path = "../..", features = ["alloc"], default-features = false }
-
-[[bin]]
-name = "embedded"
-test = false
-bench = false
 ```
 
 * Create a file `tests/embedded/src/main.rs`:
@@ -191,7 +185,7 @@ keywords = ["set", "range", "data-structures", "no_std", "wasm"]
 categories = ["data-structures", "no-std", "wasm"]
 ```
 
-The spelling (`no_std` and `no-std`) is important. The maximum number of keywords is five; likewise categories.
+The spelling (`no_std` and `no-std`) is important. The maximum number of keywords is five; likewise, categories.
 
 ## Bonus checking CI (Ubuntu)
 

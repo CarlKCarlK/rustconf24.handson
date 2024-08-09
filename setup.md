@@ -1,5 +1,25 @@
 # Setup
 
+## Testing Setup
+
+```bash
+# Rust install w/ nightly installed and up-to-date
+rustc --version
+rustup update
+rustup toolchain install nightly
+# Git installed
+git --version
+# Some editor installed, for example VS Code
+code --version
+# Chrome and Chromedriver installed and on path
+chromedriver --version
+chrome --version
+# Web server installed (can instead use VS Code's Live Preview)
+simple-http-server --version
+# QEMU installed
+qemu-system-arm --version
+```
+
 ## Rust
 
 ### Install Linux/MacOs/WSL

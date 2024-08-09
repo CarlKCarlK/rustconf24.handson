@@ -1,5 +1,7 @@
 # Hands On
 
+<https://github.com/CarlKCarlK/rustconf24.handson/blob/main/README.md>
+
 * [Setup](setup.md) (Rust, Git, VS Code, Chrome for Testing, QEMU)
 * [WASM WASI](wasi.md) "Hello World" & Porting to WASI
 * [WASM for the Browser #1](wasm_browser1.md) Run a Rust test in the browser

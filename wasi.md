@@ -64,6 +64,13 @@ cargo test
 
 The native tests succeed.
 
+Create a `.cargo/config.toml`
+
+```toml
+[target.wasm32-wasip1]
+runner = "wasmtime run --dir ."
+```
+
 Run the tests on WASM WASI:
 
 ```bash
@@ -144,5 +151,5 @@ Add this to `.github/workflows/ci.yml`
           run: cargo test --verbose --target wasm32-wasip1
 ```
 
-*OPTIONAL*: 
+*OPTIONAL*:
 Check into Github and see the new wasi test pass.

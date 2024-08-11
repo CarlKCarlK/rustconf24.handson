@@ -1,8 +1,9 @@
 # Setup
 
-## Testing Setup
+## *Are you already setup?*
 
 ```bash
+# Hour 1 - WASM WASI
 # Rust install w/ nightly installed and up-to-date
 rustc --version
 rustup update
@@ -11,24 +12,47 @@ rustup toolchain install nightly
 git --version
 # Some editor installed, for example VS Code
 code --version
+
+# Hour 2 - WASM in the Browser
 # Chrome and Chromedriver installed and on path
 chromedriver --version
 chrome --version
 # Web server installed (can instead use VS Code's Live Preview)
 simple-http-server --version
+
+# Hour 3 - no_std
 # QEMU installed
 qemu-system-arm --version
 ```
 
+### Table of Installations
+
+Hour 1: WASM WASI
+
+* [Rust](#rust)
+* [Git](#git)
+* [VS Code](#vs-code-for-example) (or another editor)
+
+Hour 2: WASM in the Browser
+
+* [Chrome for Testing and Chromedriver](#chrome-for-testing-and-chromedriver)
+* [Web Server for Local Testing](#web-server-for-local-testing) (or use VS Code's Live Preview)
+
+Hour 3: no_std
+
+* [`QEMU` Emulator for Embedded](#qemu-emulator-for-embedded)
+
+## *Installations*
+
 ## Rust
 
-### Install Linux/MacOs/WSL
+### Install on Linux/MacOs/WSL
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-### Install Windows
+### Install on Windows
 
 Download and run the installer: <https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe>
 

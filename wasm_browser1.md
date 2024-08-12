@@ -28,7 +28,7 @@ Windows:
 set PATH=%PATH%;%USERPROFILE%\.chrome-for-testing\chrome-win64;%USERPROFILE%\.chrome-for-testing\chromedriver-win64
 ```
 
-You should be able to run `chrome` and see Chrome for Testing.
+You should be able to run `chromedriver --version` and see ChromeDriver's version.
 
 ## Test Set Up
 
@@ -37,7 +37,7 @@ cargo new hello_wasm_browser
 cd hello_wasm_browser
 ```
 
-Edit `Cargo.toml`s
+Edit `Cargo.toml`
 
 ```toml
 [dependencies]
@@ -82,6 +82,7 @@ Run native. Test native and WASM "browser"
 ```bash
 cargo run
 cargo test
+cargo test --target wasm32-wasip1
 cargo test --target wasm32-unknown-unknown
 ```
 

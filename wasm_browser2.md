@@ -4,7 +4,7 @@ Related Links:
 
 * [Prerequisite Setup](setup.md)
 * [WASM Browser #1](wasm_browser1.md)
-* [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.wasm1)
+* [Final Result](https://github.com/CarlKCarlK/rustconf24-good-turing)
 
 ## Native Project: Install, Test, and Run
 
@@ -90,7 +90,7 @@ cargo check --target wasm32-unknown-unknown
 It will fail because WASM for the browser doesn't like tuples or `io::Error`
 in `Result<(usize, usize), io::Error>`.
 
-Remove `#[wasm_bindgen] pub ` from `fn good_turning. Create a new wrapper function:
+Remove `#[wasm_bindgen] pub` from `fn good_turning. Create a new wrapper function:
 
 ```rust
 #[wasm_bindgen]

@@ -9,7 +9,7 @@ Related Links:
 ## Native Project: Install, Test, and Run
 
 ```bash
-cd ~
+# top of projects directory
 git clone --branch native_version --single-branch https://github.com/CarlKCarlK/rustconf24-good-turing.git good-turing
 cd good-turing
 cargo test
@@ -62,75 +62,7 @@ runner = "wasm-bindgen-test-runner"
 
 Comment out `fn main`.
 
-At the top, add:
-
-```rust
-use wasm_bindgen::prelude::*;
-```
-
-Add `pub` before `fn good_turning...`.
-
-Add `#[wasm_bindgen]` before `pub fn good_turning...`.
-
-In `mod tests`, add:
-
-```rust
-    use wasm_bindgen_test::wasm_bindgen_test;
-    wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
-```
-
-Add `#[wasm_bindgen_test]` before `fn test_process_file()`. (Leave `#[test]`, too.)
-
-Check it:
-
-```bash
-cargo check --target wasm32-unknown-unknown
-```
-
-It will fail because WASM for the browser doesn't like tuples or `io::Error`
-in `Result<(usize, usize), io::Error>`.
-
-Remove `#[wasm_bindgen] pub` from `fn good_turning. Create a new wrapper function:
-
-```rust
-#[wasm_bindgen]
-pub fn good_turing_js(file_name: &str) -> Result<Vec<u64>, String> {
-    match good_turning(file_name) {
-        Ok((prediction, actual)) => Ok(vec![prediction as u64, actual as u64]),
-        Err(e) => Err(format!("Error processing data: {}", e)),
-    }
-}
-```
-
-In the tests, remove `#[wasm_bindgen_test]` from `fn test_process_file`. Create a new test:
-
-```rust
-    #[test]
-    #[wasm_bindgen_test]
-    fn test_process_file_js() {
-        let vec = good_turing_js("./pg100.txt").unwrap();
-        assert_eq!(vec[0], 10223);
-        assert_eq!(vec[1], 7967);
-    }
-```
-
-These should now work and run both tests natively:
-
-```bash
-cargo test
-cargo check --target wasm32-unknown-unknown
-```
-
-However, when we run the test in the browser:
-
-```bash
-cargo test --target wasm32-unknown-unknown
-```
-
-We get a run-time error: `Error processing data: operation not supported on this platform` because
-WASM in the browser doesn't support reading from files.
-
-We fix this by changing `fn good_turing` to work on generic `BufReader`'s.
+Change `fn good_turing` to work on generic `BufReader`'s.
 
 Was:
 
@@ -145,7 +77,13 @@ Now:
 fn good_turning<R: BufRead>(reader: R) -> Result<(usize, usize), io::Error> {
 ```
 
-The wrapper function `good_turing_js` now works on slices of `u8`:
+At the top, add:
+
+```rust
+use wasm_bindgen::prelude::*;
+```
+
+Add a JavaScript wrapper function that works on slices of `u8`:
 
 ```rust
 #[wasm_bindgen]
@@ -158,7 +96,15 @@ pub fn good_turning_js(data: &[u8]) -> Result<Vec<u64>, String> {
 }
 ```
 
-We update the tests to use `BufReader` and slices of `u8`:
+In `mod tests`, add:
+
+```rust
+    use wasm_bindgen_test::wasm_bindgen_test;
+    wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
+```
+
+Change the native main test to work on buffers.
+Create a new test (both native and WASM) that works on u8 slices.
 
 ```rust
     use std::fs::File;
@@ -179,8 +125,6 @@ We update the tests to use `BufReader` and slices of `u8`:
         assert_eq!(result, vec![10223, 7967]);
     }
 ```
-
-Remove any unneeded imports.
 
 Now, we can run two native tests and one WASM in the browser test with:
 

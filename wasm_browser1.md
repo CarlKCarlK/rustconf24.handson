@@ -37,14 +37,11 @@ cargo new hello_wasm_browser
 cd hello_wasm_browser
 ```
 
-Edit `Cargo.toml`
+Add dependencies to `Cargo.toml`:
 
-```toml
-[dependencies]
-wasm-bindgen = "0.2"
-
-[dev-dependencies]
-wasm-bindgen-test = "0.3.42"
+```bash
+cargo add wasm-bindgen@0.2.93
+cargo add wasm-bindgen-test@0.3.43 --dev
 ```
 
 Edit `src/main.rs`

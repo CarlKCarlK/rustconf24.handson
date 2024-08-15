@@ -12,6 +12,10 @@ rustup toolchain install nightly
 git --version
 # Some editor installed, for example VS Code
 code --version
+# a target and tool
+rustup target add wasm32-wasip1
+cargo install wasmtime-cli
+
 
 # Hour 2 - WASM in the Browser
 # Chrome and Chromedriver installed and on path
@@ -19,10 +23,17 @@ chromedriver --version
 chrome --version
 # Web server installed (can instead use VS Code's Live Preview)
 simple-http-server --version
+# A target and tool
+rustup target add wasm32-unknown-unknown
+cargo install wasm-pack
+cargo install wasm-bindgen-cli
+
 
 # Hour 3 - no_std
 # QEMU installed
 qemu-system-arm --version
+# a target
+rustup target add thumbv7m-none-eabi
 ```
 
 ### Table of Installations
@@ -32,15 +43,18 @@ Hour 1: WASM WASI
 * [Rust](#rust)
 * [Git](#git)
 * [VS Code](#vs-code-for-example) (or another editor)
+* [Targets and Tools](#install-all-targets-and-tools)
 
 Hour 2: WASM in the Browser
 
 * [Chrome for Testing and Chromedriver](#chrome-for-testing-and-chromedriver)
 * [Web Server for Local Testing](#web-server-for-local-testing) (or use VS Code's Live Preview)
+* [Targets and Tools](#install-all-targets-and-tools)
 
 Hour 3: no_std
 
 * [`QEMU` Emulator for Embedded](#qemu-emulator-for-embedded)
+* [Targets and Tools](#install-all-targets-and-tools)
 
 ## *Installations*
 
@@ -118,6 +132,13 @@ Should see
 
 ```text
 Hello, world!
+```
+
+## Install All Targets and Tools
+
+```bash
+rustup target add wasm32-wasip1 wasm32-unknown-unknown thumbv7m-none-eabi
+cargo install wasmtime-cli wasm-pack wasm-bindgen-cli
 ```
 
 ## Chrome for Testing and Chromedriver

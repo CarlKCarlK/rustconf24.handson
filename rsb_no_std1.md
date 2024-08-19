@@ -11,7 +11,7 @@ Clone a branch. Create and switch to a new branch. Run WASM for browser tests.
 
 ```bash
 # create project via git
-cd ~
+# top of projects directory
 git clone --branch rustconf24.wasm1 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
 cd rustconf24.nostd
 git switch -c rustconf24.nostd
@@ -19,15 +19,6 @@ git switch -c rustconf24.nostd
 # run wasm tests
  cargo test --target wasm32-unknown-unknown
  # On Windows, ignore `os error 10004` error.
-```
-
-The WASM for browser tests should succeed.
-
-```bash
-# build web demo
-wasm-pack build tests/wasm-demo --target web
-# Serve tests/wasm-demo/index.html (e.g. via VS Code Live Server)
-# Can run `tests/wasm-demo/index.html` in a browser.
 ```
 
 ## Find `no_std`-Compatible Dependencies
@@ -82,7 +73,6 @@ At top of the `lib.rs`, add
 
 ```rust
 #![no_std]
-
 extern crate alloc;
 ```
 
@@ -116,6 +106,16 @@ use core::fmt;
 We still have error, related to one dependency named `gen_ops`. After some research,
 the answer is to change its version from `0.3.0` to `0.4.0`.
 
+> For this example, to skip ahead use the following commands:
+>
+> ```bash
+> git stash
+> git checkout --detach
+> git branch -D rustconf24.nostd
+> git fetch origin rustconf24.nostd1:refs/remotes/origin/rustconf24.> nostd1
+> git switch -c rustconf24.nostd origin/rustconf24.nostd1
+> ```
+
 Our main code now works, but we have 89 new errors in `src\test.rs`. We'll address that next.
 
 ## Test Code Must Use the Standard Library
@@ -141,7 +141,6 @@ Change the top of `src/lib.rs` to:
 
 ```rust
 #![no_std]
-
 extern crate alloc;
 
 #[cfg(feature = "std")]

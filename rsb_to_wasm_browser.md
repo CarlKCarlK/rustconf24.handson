@@ -10,7 +10,7 @@ Related Links:
 Clone a branch. Create and switch to a new branch. Run tests.
 
 ```bash
-cd ~
+# top of projects directory
 git clone --branch rustconf24.0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.wasm1
 cd rustconf24.wasm1
 git switch -c rustconf24.wasm1

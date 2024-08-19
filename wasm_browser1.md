@@ -10,8 +10,8 @@ Install the WASM Unknown OS target, bindings to JavaScript, and command-line WAS
 
 ```bash
 rustup target add wasm32-unknown-unknown
-cargo install wasm-bindgen-cli
 cargo install wasm-pack
+cargo install wasm-bindgen-cli --version 0.2.93
 ```
 
 You should already have Chrome for Test and Chromedriver installed see [Setup](./setup.md). If needed, add them to your path temporarily:

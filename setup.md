@@ -26,7 +26,7 @@ simple-http-server --version
 # A target and tool
 rustup target add wasm32-unknown-unknown
 cargo install wasm-pack
-cargo install wasm-bindgen-cli
+cargo install wasm-bindgen-cli --version 0.2.93
 
 
 # Hour 3 - no_std
@@ -211,6 +211,7 @@ I like VS Codes's "Live Preview" extension. As a simple alternative:
 
 ```bash
 cargo install simple-http-server
+# Then run `simple-http-server` in the directory you want to serve
 ```
 
 Then, in `hello_world`, create file `index.html`:

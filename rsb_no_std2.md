@@ -19,7 +19,7 @@ Either continue work in folder `~/rustconf24.nostd` or clone the `rustconf24.nos
 
 ```bash
 # create project via git
-cd ~
+# top of projects directory
 git clone --branch rustconf24.nostd0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
 cd rustconf24.nostd
 git switch -c rustconf24.nostd
@@ -28,7 +28,8 @@ git switch -c rustconf24.nostd
 Test (std) and check (no_std) the project with:
 
 ```bash
-# cd ~/rustconf24.nostd
+# top of projects directory
+# cd rustconf24.nostd
 cargo test
 cargo check --target thumbv7m-none-eabi --features alloc --no-default-features
 ```

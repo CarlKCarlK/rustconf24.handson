@@ -22,7 +22,7 @@ Either continue work in folder `~/rustconf24.nostd` or clone the `rustconf24.nos
 # top of projects directory
 git clone --branch rustconf24.nostd0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
 cd rustconf24.nostd
-git switch -c rustconf24.nostd
+git checkout -b rustconf24.nostd
 ```
 
 Test (std) and check (no_std) the project with:
@@ -106,7 +106,7 @@ fn alloc_error(_layout: Layout) -> ! {
 ```bash
 cd tests/embedded
 wget https://raw.githubusercontent.com/rust-embedded/cortex-m-quickstart/master/build.rs
-wget https://raw.githubusercontent.com/rust-embedded/cortex-m-quickstart/master/memory
+wget https://raw.githubusercontent.com/rust-embedded/cortex-m-quickstart/master/memory.x
 ```
 
 Windows:

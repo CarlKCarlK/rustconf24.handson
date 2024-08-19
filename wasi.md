@@ -58,7 +58,7 @@ Clone a branch. Create and switch to a new branch. Run native tests.
 ```bash
 git clone --branch rustconf24.0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.wasi
 cd rustconf24.wasi
-git switch -c rustconf24.wasi
+git checkout -b rustconf24.wasi
 cargo test
 ```
 

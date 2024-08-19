@@ -240,6 +240,7 @@ See the [download page](https://www.qemu.org/download/) for full info.
 Here are two handy links:
 
 * Ubuntu: `sudo apt-get install qemu-system`
+* Arch: `sudo pacman -S qemu-system-arm`
 * Windows:
   * <https://qemu.weilnetz.de/w64/> (slow to download).
   * Add `"C:\Program Files\qemu\"` to your path.

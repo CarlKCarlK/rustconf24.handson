@@ -14,6 +14,7 @@ git --version
 code --version
 # a target and tool
 rustup target add wasm32-wasip1
+cargo install wasmtime-cli wasm-pack wasm-bindgen-cli
 cargo install wasmtime-cli
 
 
@@ -118,6 +119,7 @@ Search and install the following extensions:
 * Live Preview (ms-vscode.live-server)
 * GitLens — Git supercharged
 * Rust Extension Pack (Swellaby)
+* Dependi (Seray Uzgur)
 
 ## Test Set Up
 
@@ -138,12 +140,13 @@ Hello, world!
 
 ```bash
 rustup target add wasm32-wasip1 wasm32-unknown-unknown thumbv7m-none-eabi
-cargo install wasmtime-cli wasm-pack wasm-bindgen-cli
+cargo install wasmtime-cli wasm-pack
+cargo install wasm-bindgen-cli --version 0.2.93
 ```
 
 ## Chrome for Testing and Chromedriver
 
-We download binaries list on <https://googlechromelabs.github.io/chrome-for-testing/> and add them to our path.
+We download binaries listed on <https://googlechromelabs.github.io/chrome-for-testing/> and add them to our path.
 
 ### Linux and WSL
 
@@ -169,7 +172,8 @@ To test, type `chome` and see Chrome for Testing start.
 
 ### Windows
 
-```powershell
+```cmd
+powershell
 # Make folder
 New-Item -Path $HOME -Name ".chrome-for-testing" -ItemType "Directory"
 Set-Location -Path $HOME\.chrome-for-testing
@@ -211,7 +215,7 @@ I like VS Codes's "Live Preview" extension. As a simple alternative:
 
 ```bash
 cargo install simple-http-server
-# Then run `simple-http-server` in the directory you want to serve
+# Later, to run, `simple-http-server` in the directory you want to serve
 ```
 
 Then, in `hello_world`, create file `index.html`:
@@ -242,8 +246,15 @@ Here are two handy links:
 * Ubuntu: `sudo apt-get install qemu-system`
 * Arch: `sudo pacman -S qemu-system-arm`
 * Windows:
-  * <https://qemu.weilnetz.de/w64/> (slow to download).
-  * Add `"C:\Program Files\qemu\"` to your path.
+  * Method 1:
+    * <https://qemu.weilnetz.de/w64/qemu-w64-setup-20240815.exe>
+    * Add `"C:\Program Files\qemu\"` to your path.
+  * Method 2:
+    * Install msys2 from <https://github.com/msys2/msys2-installer/releases/download/2024-07-27/msys2-x86_64-20240727.exe>
+    * Open msys2 ucrt64  terminal
+    * `pacman -S mingw-w64-x86_64-qemu`
+    * Put `C:\msys64\mingw64\bin\` in your path
+* Mac: `brew install qemu` or `sudo port install qemu`
 
 Test with
 

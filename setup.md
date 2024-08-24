@@ -21,7 +21,8 @@ cargo install wasmtime-cli
 # Hour 2 - WASM in the Browser
 # Chrome and Chromedriver installed and on path
 chromedriver --version
-chrome --version
+which google-chrome # Linux
+where chrome # Windows
 # Web server installed (can instead use VS Code's Live Preview)
 simple-http-server --version
 # A target and tool
@@ -248,6 +249,8 @@ Here are two handy links:
 * Windows:
   * Method 1:
     * <https://qemu.weilnetz.de/w64/qemu-w64-setup-20240815.exe>
+    * Tell windows it is okay to run the installer.
+    * Then run the installer.
     * Add `"C:\Program Files\qemu\"` to your path.
   * Method 2:
     * Install msys2 from <https://github.com/msys2/msys2-installer/releases/download/2024-07-27/msys2-x86_64-20240727.exe>

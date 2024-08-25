@@ -15,6 +15,7 @@ cargo install wasmtime-cli
 ## Test Set Up
 
 ```bash
+# Start in projects folder
 cargo new hello_wasi
 cd hello_wasi
 ```
@@ -56,6 +57,7 @@ Hello, WebAssembly!
 Clone a branch. Create and switch to a new branch. Run native tests.
 
 ```bash
+# Start in projects folder
 git clone --branch rustconf24.0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.wasi
 cd rustconf24.wasi
 git checkout -b rustconf24.wasi

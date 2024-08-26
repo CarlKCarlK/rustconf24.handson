@@ -33,6 +33,7 @@ You should be able to run `chromedriver --version` and see ChromeDriver's versio
 ## Test Set Up
 
 ```bash
+# cd to top of projects directory
 cargo new hello_wasm_browser
 cd hello_wasm_browser
 ```

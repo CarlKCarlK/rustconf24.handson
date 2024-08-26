@@ -125,6 +125,7 @@ Search and install the following extensions:
 ## Test Set Up
 
 ```bash
+# cd to top of projects directory
 cargo new hello_rust
 cd hello_rust
 code . # just to look at project
@@ -147,7 +148,7 @@ cargo install wasm-bindgen-cli --version 0.2.93
 
 ## Chrome for Testing and Chromedriver
 
-We download binaries listed on <https://googlechromelabs.github.io/chrome-for-testing/> and add them to our path.
+As detailed below, we download binaries listed on <https://googlechromelabs.github.io/chrome-for-testing/> and add them to our path.
 
 ### Linux and WSL
 
@@ -167,9 +168,9 @@ unzip chromedriver-linux64.zip
 # Temporarily add the directories to the PATH for the current session
 export PATH=$PATH:~/.chrome-for-testing/chrome-linux64:~/.chrome-for-testing/chromedriver-linux64
 
-To test, type `chome` and see Chrome for Testing start.
-
 ```
+
+To test, type `chome` and see Chrome for Testing start.
 
 ### Windows
 

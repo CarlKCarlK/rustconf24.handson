@@ -80,8 +80,8 @@ Run native. Test native and WASM "browser"
 ```bash
 cargo run
 cargo test
-cargo test --target wasm32-wasip1
 cargo test --target wasm32-unknown-unknown
+# optional: cargo test --target wasm32-wasip1
 ```
 
 Should see
@@ -89,9 +89,6 @@ Should see
 ```text
 Hello, world!
 
-...
-test result: ok. 1 passed; 0 failed; 0 ignored; 0 filtered out
-...
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 filtered out
 ```
 

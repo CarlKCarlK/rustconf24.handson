@@ -14,7 +14,7 @@ git clone --branch native_version --single-branch https://github.com/CarlKCarlK/
 cd good-turing
 cargo test
 cargo run pg100.txt
-cargo run --target wasm32-wasip1 pg100.txt
+# optional: scargo run --target wasm32-wasip1 pg100.txt
 ```
 
 Outputs
@@ -28,23 +28,20 @@ Web Page:
 
 Also, web serve the file `index.html`. Choose file `pg100.txt`. See output: `Lines in file: 196391`
 
-## `src/main.rs` → `src/lib.rs`
-
-Rename `src/main.rs` to `src/lib.rs`.
-
 ## `Cargo.toml`
 
-Merge this:
+Add dependencies to `Cargo.toml`:
+
+```bash
+cargo add wasm-bindgen@0.2.93
+cargo add wasm-bindgen-test@0.3.43 --dev
+```
+
+Edit `Cargo.toml` and add:
 
 ```toml
 [lib]
 crate-type = ["cdylib", "rlib"]
-
-[dependencies]
-wasm-bindgen = "0.2.93"
-
-[dev-dependencies]
-wasm-bindgen-test = "0.3.43"
 ```
 
 `cargo test` should still work.
@@ -57,6 +54,10 @@ Add
 [target.wasm32-unknown-unknown]
 runner = "wasm-bindgen-test-runner"
 ```
+
+## `src/main.rs` → `src/lib.rs`
+
+Rename `src/main.rs` to `src/lib.rs`.
 
 ## `lib.rs`
 

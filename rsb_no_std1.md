@@ -16,8 +16,8 @@ git clone --branch rustconf24.wasm1 --single-branch https://github.com/CarlKCarl
 cd rustconf24.nostd
 git checkout -b rustconf24.nostd
 
-# run wasm tests
-cargo test --target wasm32-unknown-unknown
+# Optional: run wasm tests
+# cargo test --target wasm32-unknown-unknown
  # On Windows, ignore `os error 10004` error.
 ```
 
@@ -26,7 +26,7 @@ cargo test --target wasm32-unknown-unknown
 To see if our project is `no_std`-compatible, we compile it on a `no_std` target. The `thumbv7m-none-eabi` target is a popular choice. It is an embedded processor (so, no operating system) that we can later emulate.
 
 ```bash
-rustup target add thumbv7m-none-eabi # one time
+rustup target add thumbv7m-none-eabi
 cargo check --target thumbv7m-none-eabi
 ```
 
@@ -69,7 +69,7 @@ Now, `cargo tree --edges no-dev --format "{p} {f}"` shows no suspicious cargo fe
 
 ## Making the Main (Non-Test) Code `no_std` (and `alloc`)
 
-At top of the `lib.rs`, add
+The top of `src/lib.rs` previously pulled in a `README.md` file. We'll keep that and add a `no_std` and `alloc` declaration:
 
 ```rust
 #![doc = include_str!("../README.md")]

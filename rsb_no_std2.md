@@ -15,7 +15,8 @@ You should be able to run QEMU. Test with
 qemu-system-arm --version
 ```
 
-Either continue work in folder `~/rustconf24.nostd` or clone the `rustconf24.nostd0` branch:
+Either continue work in folder of [RangeSetBlaze `no_std` #1](rsb_no_std1.md)
+or clone the `rustconf24.nostd0` branch:
 
 ```bash
 # create project via git
@@ -138,7 +139,8 @@ members = [".", "tests_common", "tests/wasm-demo", "tests/embedded"]
 
 ```bash
 cd tests/embedded
-rustup override set nightly # to support #![feature(alloc_error_handler)]
+# to support #![feature(alloc_error_handler)]
+rustup override set nightly 
 rustup target add thumbv7m-none-eabi
 cargo run
 ```

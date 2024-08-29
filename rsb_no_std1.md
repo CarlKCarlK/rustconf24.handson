@@ -154,10 +154,9 @@ Make the top of `src/tests.rs`:
 
 ```rust
 #![cfg(test)]
-use std::format;
+extern crate std;
 use std::prelude::v1::*;
-use std::vec;
-use std::{print, println};
+use std::{format, print, println, vec};
 ```
 
 Now check that `no_std` compiles and that the `std` still run tests:

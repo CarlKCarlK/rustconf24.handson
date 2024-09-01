@@ -56,6 +56,8 @@ Hello, WebAssembly!
 
 Clone a branch. Create and switch to a new branch. Run native tests.
 
+*For now, if you need to save time, end the tests early.*
+
 ```bash
 # Start in projects folder
 git clone --branch rustconf24.0 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.wasi
@@ -109,15 +111,20 @@ fn test_demo_i32_len() {
 }
 ```
 
-Change to
+Make two changes. In `tests/integration_test.rs` change `as usize` to `as u64`:
 
 ```rust
-#[test]
 // tests/integration_test.rs
+#[test]
 fn test_demo_i32_len() {
     assert_eq!(demo_i32_len(i32::MIN..=i32::MAX), u32::MAX as u64 + 1);
 }
-// src/lib.rs -- change isize/usize to i64/u64
+```
+
+In `src/lib.rs` change `isize` to `i64` and `usize` to `u64`:
+
+```rust
+// src/lib.rs
 pub fn demo_i32_len(range: RangeInclusive<i32>) -> u64 {
     let (start, end) = range.into_inner();
     if start > end {
@@ -127,11 +134,11 @@ pub fn demo_i32_len(range: RangeInclusive<i32>) -> u64 {
 }
 ```
 
-Test again and it works. However,
+Test again and it works. For today, we're done. However,
 
 **If a feature isn’t tested, it doesn’t exist.**
 
-Add this to `.github/workflows/ci.yml`
+So, later, add this to `.github/workflows/ci.yml`
 
 ```yml
   test_wasip1:

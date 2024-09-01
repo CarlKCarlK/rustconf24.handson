@@ -1,5 +1,7 @@
 # Setup
 
+We'll check if you are already setup. If not, we'll guide you through the installations.
+
 ## *Are you already setup?*
 
 ```bash
@@ -14,7 +16,6 @@ git --version
 code --version
 # a target and tool
 rustup target add wasm32-wasip1
-cargo install wasmtime-cli wasm-pack wasm-bindgen-cli
 cargo install wasmtime-cli
 
 

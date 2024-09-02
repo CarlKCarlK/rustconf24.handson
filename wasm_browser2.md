@@ -46,7 +46,7 @@ crate-type = ["cdylib", "rlib"]
 
 `cargo test` should still work.
 
-## `.cargo/config.toml`
+## Edit `.cargo/config.toml`
 
 Add
 
@@ -63,6 +63,12 @@ Rename `src/main.rs` to `src/lib.rs`.
 
 Comment out `fn main`.
 
+At the top, add:
+
+```rust
+use wasm_bindgen::prelude::*;
+```
+
 Change `fn good_turing` to work on generic `BufReader`'s.
 
 Was:
@@ -78,12 +84,6 @@ Now:
 fn good_turing<R: BufRead>(reader: R) -> Result<(u32, u32), io::Error> {
 ```
 
-At the top, add:
-
-```rust
-use wasm_bindgen::prelude::*;
-```
-
 Add a wrapper function for use by JavaScript that works on slices of `u8`:
 
 ```rust
@@ -97,7 +97,7 @@ pub fn good_turing_js(data: &[u8]) -> Result<Vec<u32>, String> {
 }
 ```
 
-In `mod tests`, add:
+At the bottom, in `mod tests`, add:
 
 ```rust
     use wasm_bindgen_test::wasm_bindgen_test;
@@ -134,13 +134,13 @@ cargo test
 cargo test --target wasm32-unknown-unknown
 ```
 
-## `index.html`
-
-Compile to WASM
+## Package as WASM for the Browser
 
 ```bash
 wasm-pack build --target web
 ```
+
+## `index.html`
 
 Update `index.html` with goal of:
 
@@ -202,7 +202,7 @@ Prediction (words that appear exactly once on even lines): 10,223
 Actual distinct words that appear only on odd lines: 7,967
 ```
 
-## Add a WASM for Browser Test CI Test
+## Later: Add a WASM for Browser Test CI Test
 
 In `.github/workflows/ci.yml`, add:
 

@@ -4,7 +4,7 @@ We'll check if you are already setup. If not, we'll guide you through the instal
 
 ## *Are you already setup?*
 
-> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each chunk.
+> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each paste.
 
 ```bash
 # Hour 1 - WASM WASI

@@ -9,6 +9,8 @@ Related Links:
 
 Install the WASM Unknown OS target, and two WASM tools.
 
+> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each paste.
+
 ```bash
 rustup target add wasm32-unknown-unknown
 cargo install wasm-pack
@@ -18,8 +20,6 @@ cargo install wasm-bindgen-cli --version 0.2.93
 > Aside: For time and simplicity, we are skipping Chromedriver testing.
 
 ## Native Project: Install, Test, and Run
-
-> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each chunk.
 
 ```bash
 # top of projects directory
@@ -39,7 +39,15 @@ Actual distinct words that appear only on odd lines: 7967
 
 Web Page:
 
-Also, web serve the file `index.html`. Choose file `pg100.txt`. See output: `Lines in file: 196391`
+Serve the `index.html` web page with VS Code's "Live Preview" or
+
+> `simple-http-server --ip 127.0.0.2 --port 3000 --index`
+>
+> and, open a browser to <http://127.0.0.2:3000>.
+
+Choose file `pg100.txt` and see
+
+Choose file `pg100.txt`. See output: `Lines in file: 196391`
 
 ## `src/main.rs` → `src/lib.rs`
 
@@ -214,13 +222,12 @@ The result is:
 </html>
 ```
 
-Serve the web page with VS Code's "Live Server" or
+Serve the web page with VS Code's "Live Preview" or
 
-```bash
-simple-http-server --ip 127.0.0.2 --port 3000 --index
-```
+> `simple-http-server --ip 127.0.0.2 --port 3000 --index`
+>
+> and, open a browser to <http://127.0.0.2:3000>.
 
-Then open a browser to <http://127.0.0.2:3000>
 Choose file `pg100.txt` and see
 
 ```text

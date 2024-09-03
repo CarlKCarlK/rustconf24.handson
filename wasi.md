@@ -14,7 +14,7 @@ cargo install wasmtime-cli
 
 ## Test Set Up
 
-> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each chunk.
+> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each paste.
 
 ```bash
 # Start in projects folder

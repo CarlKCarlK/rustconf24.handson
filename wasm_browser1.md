@@ -1,4 +1,4 @@
-# WASM Browser #1
+# *Skip:* WASM Browser #1
 
 Related Links:
 
@@ -14,21 +14,7 @@ cargo install wasm-pack
 cargo install wasm-bindgen-cli --version 0.2.93
 ```
 
-You should already have Chrome for Test and Chromedriver installed see [Setup](./setup.md). If needed, add them to your path temporarily:
-
-Linux/MacOS:
-
-```bash
-export PATH=$PATH:~/.chrome-for-testing/chrome-linux64:~/.chrome-for-testing/chromedriver-linux64
-```
-
-Windows:
-
-```cmd
-set PATH=%PATH%;%USERPROFILE%\.chrome-for-testing\chrome-win64;%USERPROFILE%\.chrome-for-testing\chromedriver-win64
-```
-
-You should be able to run `chromedriver --version` and see ChromeDriver's version.
+> Aside: For time and simplicity, we are skipping Chromedriver testing.
 
 ## Test Set Up
 

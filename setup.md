@@ -4,12 +4,15 @@ We'll check if you are already setup. If not, we'll guide you through the instal
 
 ## *Are you already setup?*
 
+> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each chunk.
+
 ```bash
 # Hour 1 - WASM WASI
-# Rust install w/ nightly installed and up-to-date
+# Rust install and up-to-date w/ stable (default) and nightly
 rustc --version
 rustup update
 rustup toolchain install nightly
+rustup default stable
 # Git installed
 git --version
 # Some editor installed, for example VS Code
@@ -20,16 +23,17 @@ cargo install wasmtime-cli
 
 
 # Hour 2 - WASM in the Browser
-# Chrome and Chromedriver installed and on path
-chromedriver --version
-which google-chrome # Linux
-where chrome # Windows
-# Web server installed (can instead use VS Code's Live Preview)
-simple-http-server --version
 # A target and tool
 rustup target add wasm32-unknown-unknown
 cargo install wasm-pack
 cargo install wasm-bindgen-cli --version 0.2.93
+# Web server installed (can instead use VS Code's Live Preview)
+simple-http-server --version
+## Skipping
+## Chrome and Chromedriver installed and on path
+# chromedriver --version
+# which google-chrome # Linux
+# where chrome # Windows
 
 
 # Hour 3 - no_std
@@ -39,7 +43,7 @@ qemu-system-arm --version
 rustup target add thumbv7m-none-eabi
 ```
 
-### Table of Installations
+### Table of Contents for Installations
 
 Hour 1: WASM WASI
 
@@ -50,9 +54,9 @@ Hour 1: WASM WASI
 
 Hour 2: WASM in the Browser
 
-* [Chrome for Testing and Chromedriver](#chrome-for-testing-and-chromedriver)
-* [Web Server for Local Testing](#web-server-for-local-testing) (or use VS Code's Live Preview)
 * [Targets and Tools](#install-all-targets-and-tools)
+* [Web Server for Local Testing](#web-server-for-local-testing) (or use VS Code's Live Preview)
+* *SKIPPING*: [Chrome for Testing and Chromedriver](#chrome-for-testing-and-chromedriver)
 
 Hour 3: no_std
 
@@ -78,6 +82,7 @@ Download and run the installer: <https://static.rust-lang.org/rustup/dist/x86_64
 ```bash
 rustc --version
 rustup update
+rustup default stable
 rustup toolchain install nightly
 ```
 
@@ -112,13 +117,13 @@ code --version
 
 Download and install VS Code from <https://code.visualstudio.com/Download>
 
-### Extensions
+### Some Possible Extensions
 
-Search and install the following extensions:
+Here are the extensions I use:
 
+* Live Preview (ms-vscode.live-server)
 * Rust-Analyzer (matklad.rust-analyzer)
 * CodeLLDB (vadimcn.vscode-lldb)
-* Live Preview (ms-vscode.live-server)
 * GitLens — Git supercharged
 * Rust Extension Pack (Swellaby)
 * Dependi (Seray Uzgur)
@@ -147,7 +152,7 @@ cargo install wasmtime-cli wasm-pack
 cargo install wasm-bindgen-cli --version 0.2.93
 ```
 
-## Chrome for Testing and Chromedriver
+## *SKIP*: Chrome for Testing and Chromedriver
 
 As detailed below, we download binaries listed on <https://googlechromelabs.github.io/chrome-for-testing/> and add them to our path.
 
@@ -182,7 +187,7 @@ New-Item -Path $HOME -Name ".chrome-for-testing" -ItemType "Directory"
 Set-Location -Path $HOME\.chrome-for-testing
 
 # Download zip files
-bitsadmin /transfer "ChromeDriverDownload" https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/win64/chrome-win64.zip $HOME\.chrome-for-testing\chrome-win64.zip
+bitsadmin /transfer "ChromeDownload" https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/win64/chrome-win64.zip $HOME\.chrome-for-testing\chrome-win64.zip
 
 bitsadmin /transfer "ChromeDriverDownload" https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/win64/chromedriver-win64.zip $HOME\.chrome-for-testing\chromedriver-win64.zip
 
@@ -208,7 +213,6 @@ Look at <https://googlechromelabs.github.io/chrome-for-testing/> and adapt the L
 Test with
 
 ```bash
-chrome --version
 chromedriver --version
 ```
 
@@ -236,9 +240,10 @@ Then, in `hello_world`, create file `index.html`:
 ```
 
 ```bash
-simple-http-server --ip 127.0.0.2 --port 3000 --index &
-chrome http://127.0.0.2:3000
+simple-http-server --ip 127.0.0.2 --port 3000 --index
 ```
+
+Then open a browser to <http://127.0.0.2:3000>.
 
 ## `QEMU` Emulator for Embedded
 

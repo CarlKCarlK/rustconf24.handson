@@ -3,10 +3,23 @@
 Related Links:
 
 * [Prerequisite Setup](setup.md)
-* [WASM Browser #1](wasm_browser1.md)
 * [Final Result](https://github.com/CarlKCarlK/rustconf24-good-turing)
 
+## Install
+
+Install the WASM Unknown OS target, and two WASM tools.
+
+```bash
+rustup target add wasm32-unknown-unknown
+cargo install wasm-pack
+cargo install wasm-bindgen-cli --version 0.2.93
+```
+
+> Aside: For time and simplicity, we are skipping Chromedriver testing.
+
 ## Native Project: Install, Test, and Run
+
+> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each chunk.
 
 ```bash
 # top of projects directory
@@ -14,7 +27,7 @@ git clone --branch native_version --single-branch https://github.com/CarlKCarlK/
 cd good-turing
 cargo test
 cargo run pg100.txt
-# optional: scargo run --target wasm32-wasip1 pg100.txt
+# optional: cargo run --target wasm32-wasip1 pg100.txt
 ```
 
 Outputs
@@ -27,6 +40,14 @@ Actual distinct words that appear only on odd lines: 7967
 Web Page:
 
 Also, web serve the file `index.html`. Choose file `pg100.txt`. See output: `Lines in file: 196391`
+
+## `src/main.rs` → `src/lib.rs`
+
+Rename `src/main.rs` to `src/lib.rs`.
+
+## `lib.rs`
+
+Comment out `fn main`.
 
 ## `Cargo.toml`
 
@@ -46,7 +67,7 @@ crate-type = ["cdylib", "rlib"]
 
 `cargo test` should still work.
 
-## Edit `.cargo/config.toml`
+## *Skip:* Edit `.cargo/config.toml`
 
 Add
 
@@ -55,13 +76,7 @@ Add
 runner = "wasm-bindgen-test-runner"
 ```
 
-## `src/main.rs` → `src/lib.rs`
-
-Rename `src/main.rs` to `src/lib.rs`.
-
-## `lib.rs`
-
-Comment out `fn main`.
+## `lib.rs` (again)
 
 At the top, add:
 
@@ -127,11 +142,15 @@ Create a new test (both native and WASM) that works on u8 slices.
     }
 ```
 
-Now, we can run two native tests and one WASM in the browser test with:
+Now, if we had Chromedriver setup, we can run two native tests and one WASM in the browser test with:
+
+> Note: If VS Code's Rust Analyzer Extension has your code locked too long,
+> you may wish to disable the extension.
 
 ```bash
 cargo test
-cargo test --target wasm32-unknown-unknown
+#SKIP: cargo test --target wasm32-unknown-unknown
+#SKIP: On Windows, ignore `os error 10004` error
 ```
 
 ## Package as WASM for the Browser
@@ -195,14 +214,23 @@ The result is:
 </html>
 ```
 
-Serve the web page, open file `pg100.txt` and see
+Serve the web page with VS Code's "Live Server" or
+
+```bash
+simple-http-server --ip 127.0.0.2 --port 3000 --index
+```
+
+Then open a browser to <http://127.0.0.2:3000>
+Choose file `pg100.txt` and see
 
 ```text
 Prediction (words that appear exactly once on even lines): 10,223
 Actual distinct words that appear only on odd lines: 7,967
 ```
 
-## Later: Add a WASM for Browser Test CI Test
+Try other files.
+
+## *Skip*: Add a WASM for Browser Test CI Test
 
 In `.github/workflows/ci.yml`, add:
 

@@ -45,6 +45,7 @@ git fetch origin rustconf24.wasm1:refs/remotes/origin/rustconf24.wasm1
 git merge origin/rustconf24.wasm1
 
 cargo test --target wasm32-unknown-unknown
+ # On Windows, ignore `os error 10004` error
 ```
 
 Behind the scenes it is doing:

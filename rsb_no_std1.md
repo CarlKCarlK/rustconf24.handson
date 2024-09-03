@@ -81,6 +81,9 @@ extern crate alloc;
 
 This says we won't use the standard library, but we will still use allocated memory.
 
+> Note: If VS Code's Rust Analyzer Extension has your code locked too long,
+> you may wish to disable the extension.
+
 Now `cargo check --target thumbv7m-none-eabi` causes dozens of errors, one for every place we use ``std::``, for example:
 
 ```rust

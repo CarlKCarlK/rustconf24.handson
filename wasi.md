@@ -14,6 +14,8 @@ cargo install wasmtime-cli
 
 ## Test Set Up
 
+> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each chunk.
+
 ```bash
 # Start in projects folder
 cargo new hello_wasi
@@ -39,6 +41,9 @@ runner = "wasmtime run --dir ."
 ```
 
 Run native and WASM.
+
+> Note: If VS Code's Rust Analyzer Extension has your code locked too long,
+> you may wish to disable the extension.
 
 ```bash
 cargo run

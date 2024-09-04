@@ -5,18 +5,20 @@ Related Links:
 * [Prerequisite Setup](setup.md)
 * [Final Result](https://github.com/CarlKCarlK/range-set-blaze/tree/rustconf24.nostd)
 
-## Start with WASM for Browser version
+## Start with WASM-for-Browser Code Branch
 
 Clone a branch. Create and switch to a new branch. Run WASM for browser tests.
 
+> Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each paste.
+
 ```bash
-# create project via git
 # top of projects directory
+# create project via git
 git clone --branch rustconf24.wasm1 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
 cd rustconf24.nostd
 git checkout -b rustconf24.nostd
 
-# Optional: run wasm tests
+# Optional: test wasm for browser
 # cargo test --target wasm32-unknown-unknown
  # On Windows, ignore `os error 10004` error.
 ```
@@ -53,7 +55,7 @@ range-set-blaze v0.1.6 (C:\deldir\branches\rustconf24.nostd)
 └── num-traits v0.2.19 default,i128,std (*)
 ```
 
-Cargo features with names like `std` and `use_std` cargo features suggest a need for the standard library. We research each such dependency by, for example, finding it on GitHub and reading its README and `Cargo.toml` files.
+Cargo features with names like `std` and `use_std` suggest a need for the standard library. We research each such dependency by, for example, finding it on GitHub and reading its README and `Cargo.toml` files.
 
 We then edit our `Cargo.toml` removing the suspect Cargo features and adding the `use_alloc` feature to `itertools`:
 
@@ -65,7 +67,19 @@ num-traits = { version = "0.2.19", default-features = false }
 gen_ops = "0.3.0"
 ```
 
-Now, `cargo tree --edges no-dev --format "{p} {f}"` shows no suspicious cargo features. Moreover, `cargo check --target thumbv7m-none-eabi` gets through our dependencies. Now, all the  and shows errors in our code.
+Run "cargo tree", again:
+
+```bash
+cargo tree --edges no-dev --format "{p} {f}"
+```
+
+Run the "check", again:
+
+```bash
+cargo check --target thumbv7m-none-eabi
+```
+
+It gets through our dependencies. Now, it now shows errors in our code.
 
 ## Making the Main (Non-Test) Code `no_std` (and `alloc`)
 

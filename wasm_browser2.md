@@ -45,8 +45,6 @@ Serve the `index.html` web page with VS Code's "Live Preview" or
 >
 > and, open a browser to <http://127.0.0.2:3000>.
 
-Choose file `pg100.txt` and see
-
 Choose file `pg100.txt`. See output: `Lines in file: 196391`
 
 ## `src/main.rs` → `src/lib.rs`
@@ -73,7 +71,14 @@ Edit `Cargo.toml` and add:
 crate-type = ["cdylib", "rlib"]
 ```
 
-`cargo test` should still work.
+This should still work:
+
+```bash
+cargo test
+```
+
+> Note: If VS Code's Rust Analyzer Extension has your code locked too long,
+> you may wish to disable the extension
 
 ## *Skip:* Edit `.cargo/config.toml`
 
@@ -128,7 +133,7 @@ At the bottom, in `mod tests`, add:
 ```
 
 Change the native main test to work on buffers.
-Create a new test (both native and WASM) that works on u8 slices.
+Create a new test (both native and WASM-for-browser) that works on u8 slices.
 
 ```rust
     use std::fs::File;
@@ -150,10 +155,7 @@ Create a new test (both native and WASM) that works on u8 slices.
     }
 ```
 
-Now, if we had Chromedriver setup, we can run two native tests and one WASM in the browser test with:
-
-> Note: If VS Code's Rust Analyzer Extension has your code locked too long,
-> you may wish to disable the extension.
+Now, if we had Chromedriver set up, we could run two native tests and one WASM-in-the-browser test with:
 
 ```bash
 cargo test

@@ -2,6 +2,10 @@
 
 We'll check if you are already setup. If not, we'll guide you through the installations.
 
+> If you have questions, before the conference, feel free to
+> send me an email at <carlk@msn.com> or find me on the conference
+> Discord.
+
 ## *Are you already setup?*
 
 > Note: If you cut-and-paste, remember to add an *`ENTER`* at the end of each paste.

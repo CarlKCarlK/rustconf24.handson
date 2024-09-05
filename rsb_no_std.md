@@ -17,15 +17,16 @@ Clone a branch. Create and switch to a new branch. Run WASM for browser tests.
 git clone --branch rustconf24.wasm1 --single-branch https://github.com/CarlKCarlK/range-set-blaze.git rustconf24.nostd
 cd rustconf24.nostd
 git checkout -b rustconf24.nostd
+cargo check --target wasm32-unknown-unknown
 
-# Optional: test wasm for browser
+# Optional: test wasm for browser if Chromedriver is installed
 # cargo test --target wasm32-unknown-unknown
  # On Windows, ignore `os error 10004` error.
 ```
 
 ## Find `no_std`-Compatible Dependencies
 
-To see if our project is `no_std`-compatible, we compile it on a `no_std` target. The `thumbv7m-none-eabi` target is a popular choice. It is an embedded processor (so, no operating system) that we can later emulate.
+To see if our project is `no_std`-compatible, we compile it to a `no_std` target. The `thumbv7m-none-eabi` target is a popular choice. It is an embedded processor (so, no operating system) that we can later emulate.
 
 ```bash
 rustup target add thumbv7m-none-eabi
@@ -33,7 +34,6 @@ cargo check --target thumbv7m-none-eabi
 ```
 
 We see errors related to our dependencies.
-
 To fix these, first, see what dependencies you are using and which of
 their cargo features you are using.
 
@@ -57,7 +57,7 @@ range-set-blaze v0.1.6 (C:\deldir\branches\rustconf24.nostd)
 
 Cargo features with names like `std` and `use_std` suggest a need for the standard library. We research each such dependency by, for example, finding it on GitHub and reading its README and `Cargo.toml` files.
 
-We then edit our `Cargo.toml`, creating our own `alloc` feature that avoids the `std` features of our dependencies. In addition, we add the `use_alloc` feature to `itertools`. Also, increase the version of `gen_ops` to `0.4.0`.
+We then edit our `Cargo.toml`, creating our own `alloc` feature that avoids the `std` features of our dependencies. In addition, we add the `use_alloc` feature to `itertools`. Also, we increase the version of `gen_ops` to `0.4.0`.
 
 ```toml
 [features]
@@ -84,11 +84,30 @@ Run the "check" with our new feature:
 cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
 ```
 
-It gets through our dependencies. But we now see errors in our code.
+It gets through our dependencies. But we now see hundreds of errors in our code.
 
 ## Making the Main (Non-Test) Code `no_std` (and `alloc`)
 
-The number of errors in our code is 50 or so. We get one error for every place we use ``std::``, for example, around line 29 in `src/lib.rs`:
+To start to fix the errors,
+
+The top of `src/lib.rs` previously pulled in a `README.md` file. We'll keep that and add a `no_std`, `alloc`, and (conditional)`std` declaration:
+
+```rust
+#![doc = include_str!("../README.md")]
+#![warn(missing_docs)]
+#![no_std]
+extern crate alloc;
+#[cfg(feature = "std")]
+extern crate std;
+```
+
+This says we won't necessarily use the standard library, but we will still use allocate memory. Also, when compiling with the `std` cargo feature (our default), we will use the standard library.
+
+```bash
+cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
+```
+
+This reduces the errors to less then 40. We get one error for every place we use ``std::``, for example in `lib.rs`:
 
 ```rust
 use std::cmp::max;
@@ -96,23 +115,8 @@ use std::cmp::Ordering;
 use std::collections::BTreeMap;
 ```
 
-Change these three lines to use either `core::` or (if memory related) `alloc::`:
-
-```rust
-use core::cmp::max;
-use core::cmp::Ordering;
-use alloc::collections::BTreeMap;
-```
-
-Try "check" again:
-
-```bash
-cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
-```
-
-That reduces the errors to just under 50. In real life, you would continue replacing all `std::` with `core::` or `alloc::` until you have no more errors.
-
-For now, let's cheat and skip to the next step.
+These lines need to be changed to use either `core::` or (if memory related) `alloc::`.
+For now, let's cheat and make this change by pulling in branch.
 
 ```bash
 git fetch origin rustconf24.nostd1:refs/remotes/origin/rustconf24.nostd1
@@ -125,15 +129,9 @@ Try "check" again and it works!
 cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
 ```
 
-## Test Code Must Use the Standard Library
+This branch also updated the top of `src/tests.rs` with these lines:
 
-Our main code now works, but when we try to run native tests, we get 89 new errors.
-
-```bash
-cargo test
-```
-
-Make the top of `src/tests.rs`:
+> Note: You don't need to make this change because the branch did it for you.
 
 ```rust
 #![cfg(test)]
@@ -142,23 +140,19 @@ use std::prelude::v1::*;
 use std::{format, print, println, vec};
 ```
 
-Now check that `no_std` compiles and that the `std` still run tests:
+Which allows native testing to work. (Cancel the test with `Ctrl-C` if you want to save time.)
 
 ```bash
-cargo check --target thumbv7m-none-eabi --features alloc --no-default-features
 cargo test
 ```
 
-## Set up
+## Create an Example Embedded Project
 
 Be sure `QEMU` is installed and on your path. See [setup](setup.md#qemu-emulator-for-embedded).
 You should be able to run QEMU. Test with
 
-```bash
-qemu-system-arm --version
+```bashqemu-system-arm --version
 ```
-
-## Create an Example Embedded Project
 
 * Create a `tests/embedded/Cargo.toml` that depends on your local project with "no default features" and "alloc":
 

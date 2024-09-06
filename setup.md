@@ -249,14 +249,16 @@ simple-http-server --ip 127.0.0.2 --port 3000 --index
 
 Then open a browser to <http://127.0.0.2:3000>.
 
-## `QEMU` Emulator for Embedded
+## `QEMU` (Quick Emulator, "cue-em-you") for Embedded
 
 See the [download page](https://www.qemu.org/download/) for full info.
 
 Here are two handy links:
 
-* Ubuntu: `sudo apt-get install qemu-system`
-* Arch: `sudo pacman -S qemu-system-arm`
+* Linux
+  * Ubuntu: `sudo apt-get install qemu-system`
+  * Arch: `sudo pacman -S qemu-system-arm`
+  * Fedora: `sudo dnf install qemu-system-arm`
 * Windows:
   * Method 1:
     * <https://qemu.weilnetz.de/w64/qemu-w64-setup-20240815.exe>

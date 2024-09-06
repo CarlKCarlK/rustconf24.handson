@@ -26,7 +26,7 @@ cargo check --target wasm32-unknown-unknown
 
 ## Find `no_std`-Compatible Dependencies
 
-To see if our project is `no_std`-compatible, we compile it to a `no_std` target. The `thumbv7m-none-eabi` target is a popular choice. It is an embedded processor (so, no operating system) that we can later emulate.
+To see if our project is `no_std`-compatible, we compile it to a `no_std` target. We expect errors.
 
 ```bash
 rustup target add thumbv7m-none-eabi
@@ -72,13 +72,13 @@ num-traits = { version = "0.2.19", optional = true, default-features = false }
 gen_ops = "0.4.0"
 ```
 
-Run "cargo tree" on our new feature:
+Specifying the new feature, we run "cargo tree" again:
 
 ```bash
 cargo tree --features alloc --no-default-features --edges no-dev --format "{p} {f}" 
 ```
 
-Run the "check" with our new feature:
+Specifying the new feature, we run the "check". We expect *different* errors.
 
 ```bash
 cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
@@ -115,7 +115,8 @@ use std::cmp::Ordering;
 use std::collections::BTreeMap;
 ```
 
-These lines need to be changed to use either `core::` or (if memory related) `alloc::`.
+These lines need to be changed to use either `core::` or (if memory related) `alloc::`. We also need to add some `std` definitions to our tests.
+
 For now, let's cheat and make this change by pulling in branch.
 
 ```bash
@@ -129,18 +130,7 @@ Try "check" again and it works!
 cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
 ```
 
-This branch also updated the top of `src/tests.rs` with these lines:
-
-> Note: You don't need to make this change because the branch did it for you.
-
-```rust
-#![cfg(test)]
-extern crate std;
-use std::prelude::v1::*;
-use std::{format, print, println, vec};
-```
-
-Which allows native testing to work. (Cancel the test with `Ctrl-C` if you want to save time.)
+We confirm that native testing still works. (Cancel the test with `Ctrl-C` if you want to save time.)
 
 ```bash
 cargo test
@@ -151,16 +141,23 @@ cargo test
 Be sure `QEMU` is installed and on your path. See [setup](setup.md#qemu-emulator-for-embedded).
 You should be able to run QEMU. Test with
 
-```bashqemu-system-arm --version
+```bash
+qemu-system-arm --version
 ```
 
-* Create a `tests/embedded/Cargo.toml` that depends on your local project with "no default features" and "alloc":
+Create a new sub-project for embedded testing.
+
+```bash
+cargo new tests/embedded
+```
+
+Edit `tests/embedded/Cargo.toml` so that it depends on your local project with "no default features" and "alloc". Also add dependencies for embedded code.
 
 ```toml
 [package]
-edition = "2021"
 name = "embedded"
 version = "0.1.0"
+edition = "2021"
 
 [dependencies]
 alloc-cortex-m = "0.4.4"
@@ -172,7 +169,7 @@ panic-halt = "0.2.0"
 range-set-blaze = { path = "../..", features = ["alloc"], default-features = false }
 ```
 
-* Create a file `tests/embedded/src/main.rs`:
+Edit file `tests/embedded/src/main.rs`:
 
 ```rust
 // based on https://github.com/rust-embedded/cortex-m-quickstart/blob/master/examples/allocator.rs
@@ -219,7 +216,7 @@ fn alloc_error(_layout: Layout) -> ! {
 }
 ```
 
-* Copy `build.rs` and `memory.x` from [cortex-m-quickstart’s GitHub](https://github.com/rust-embedded/cortex-m-quickstart/tree/master) to `tests/embedded/`. For example,
+Copy `build.rs` and `memory.x` from [cortex-m-quickstart’s GitHub](https://github.com/rust-embedded/cortex-m-quickstart/tree/master) to `tests/embedded/`.
 
 Linux:
 
@@ -237,7 +234,7 @@ powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/r
 powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/rust-embedded/cortex-m-quickstart/master/memory.x' -OutFile 'memory.x'"
 ```
 
-* Create a `tests/embedded/.cargo/config.toml` containing:
+Create a `tests/embedded/.cargo/config.toml` containing:
 
 ```toml
 [target.thumbv7m-none-eabi]
@@ -247,14 +244,7 @@ runner = "qemu-system-arm -cpu cortex-m3 -machine lm3s6965evb -nographic -semiho
 target = "thumbv7m-none-eabi"
 ```
 
-* Update the project’s main `Cargo.toml` by adding `tests/embedded` to the workspace:
-
-```toml
-[workspace]
-members = [".", "tests_common", "tests/wasm-demo", "tests/embedded"]
-```
-
-* Run the test with
+Run the test with
 
 ```bash
 cd tests/embedded
@@ -264,7 +254,7 @@ rustup target add thumbv7m-none-eabi
 cargo run
 ```
 
-It should output the log message: `"-4..=-3, 100..=103"`.
+It should output the log message: `"-4..=-3, 100..=103"` and exit without error.
 
 ## LATER: CI and Keywords
 

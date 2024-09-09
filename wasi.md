@@ -80,7 +80,7 @@ Create a `.cargo/config.toml`
 runner = "wasmtime run --dir ."
 ```
 
-Run the tests on WASM WASI:
+Try to run the tests on WASM WASI (it won't work):
 
 ```bash
 cargo test --target wasm32-wasip1

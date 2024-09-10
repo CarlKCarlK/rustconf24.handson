@@ -10,3 +10,5 @@
 * [WASM for the Browser #2](wasm_browser2.md) Call Rust from the browser
 * *skip* [Get RangeSetBlaze in the Browser](rsb_to_wasm_browser.md)
 * [RangeSetBlaze `no_std`](rsb_no_std.md)
+
+-- Carl Kadie, <https://medium.com/@carlmkadie>

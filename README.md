@@ -1,8 +1,8 @@
 # Hands On
 
-<https://github.com/CarlKCarlK/rustconf24.handson/blob/main/README.md>
+[Slides (until 9/24/24)](https://1drv.ms/p/s!AkoPP4cC5J64gd7UGoSQ5mlaQLv6FWU?e=AoW2cN)
 
-> Private Discord Channnel: <https://discord.gg/6GYRJKRQ>
+<https://github.com/CarlKCarlK/rustconf24.handson/blob/main/README.md>
 
 * [Setup](setup.md) (Rust, Git, VS Code, QEMU)
 * [WASM WASI](wasi.md) "Hello World" & Porting to WASI
@@ -12,3 +12,5 @@
 * [RangeSetBlaze `no_std`](rsb_no_std.md)
 
 -- Carl Kadie, <https://medium.com/@carlmkadie>
+
+> May not work: Private Discord Channnel: <https://discord.gg/6GYRJKRQ>

@@ -2,6 +2,8 @@
 
 <https://github.com/CarlKCarlK/rustconf24.handson/blob/main/README.md>
 
+> Private Discord Channnel: <https://discord.gg/6GYRJKRQ>
+
 * [Setup](setup.md) (Rust, Git, VS Code, QEMU)
 * [WASM WASI](wasi.md) "Hello World" & Porting to WASI
 * *skip* [WASM for the Browser #1](wasm_browser1.md) Run a Rust test in the browser

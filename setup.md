@@ -30,7 +30,7 @@ cargo install wasmtime-cli
 # A target and tool
 rustup target add wasm32-unknown-unknown
 cargo install wasm-pack
-cargo install wasm-bindgen-cli --version 0.2.93
+cargo install wasm-bindgen-cli
 # Web server installed (can instead use VS Code's Live Preview)
 simple-http-server --version
 ## Skipping
@@ -153,7 +153,7 @@ Hello, world!
 ```bash
 rustup target add wasm32-wasip1 wasm32-unknown-unknown thumbv7m-none-eabi
 cargo install wasmtime-cli wasm-pack
-cargo install wasm-bindgen-cli --version 0.2.93
+cargo install wasm-bindgen-cli
 ```
 
 ## *SKIP*: Chrome for Testing and Chromedriver

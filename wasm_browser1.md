@@ -11,7 +11,7 @@ Install the WASM Unknown OS target, bindings to JavaScript, and command-line WAS
 ```bash
 rustup target add wasm32-unknown-unknown
 cargo install wasm-pack
-cargo install wasm-bindgen-cli --version 0.2.93
+cargo install wasm-bindgen-cli
 ```
 
 > Aside: For time and simplicity, we are skipping Chromedriver testing.

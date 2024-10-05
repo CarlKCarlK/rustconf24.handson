@@ -80,7 +80,7 @@ Create a `.cargo/config.toml`
 runner = "wasmtime run --dir ."
 ```
 
-Run the tests on WASM WASI:
+Try to run the tests on WASM WASI (it won't work):
 
 ```bash
 cargo test --target wasm32-wasip1
@@ -106,7 +106,12 @@ criterion = { version = "0.5.1", features = ["html_reports", "plotters", "cargo_
 criterion = { version = "0.5.1", features = ["rayon"] }
 ```
 
-Test again (`cargo test --target wasm32-wasip1`) and get
+Test again
+
+```bash
+cargo test --target wasm32-wasip1
+```
+and get:
 
 ```rust
 #[test]
@@ -139,7 +144,13 @@ pub fn demo_i32_len(range: RangeInclusive<i32>) -> u64 {
 }
 ```
 
-Test again and it works. For today, we're done. However,
+Test again and it works.
+
+```bash
+cargo test --target wasm32-wasip1
+```
+
+For today, we're done. However,
 
 **If a feature isn’t tested, it doesn’t exist.**
 

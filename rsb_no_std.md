@@ -63,25 +63,24 @@ We then edit our `Cargo.toml`, creating our own `alloc` feature that avoids the 
 [features]
 default = ["std"]
 std = ["itertools/use_std", "num-traits/std", "num-integer/std"]
-alloc = ["itertools/use_alloc", "num-traits", "num-integer"]
 
 [dependencies]
-itertools = { version = "0.13.0", optional = true, default-features = false }
-num-integer = { version = "0.1.46", optional = true, default-features = false }
-num-traits = { version = "0.2.19", optional = true, default-features = false }
+itertools = { version = "0.13.0", features = ["use_alloc"], default-features = false }
+num-integer = { version = "0.1.46", default-features = false }
+num-traits = { version = "0.2.19", features = ["i128"], default-features = false }
 gen_ops = "0.4.0"
 ```
 
 Specifying the new feature, we run "cargo tree" again:
 
 ```bash
-cargo tree --features alloc --no-default-features --edges no-dev --format "{p} {f}" 
+cargo tree --no-default-features --edges no-dev --format "{p} {f}" 
 ```
 
 Specifying the new feature, we run the "check". We expect *different* errors.
 
 ```bash
-cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
+cargo check --no-default-features --target thumbv7m-none-eabi
 ```
 
 It gets through our dependencies. But we now see hundreds of errors in our code.
@@ -104,7 +103,7 @@ extern crate std;
 This says we won't necessarily use the standard library, but we will still use allocate memory. Also, when compiling with the `std` cargo feature (our default), we will use the standard library.
 
 ```bash
-cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
+cargo check --no-default-features --target thumbv7m-none-eabi
 ```
 
 This reduces the errors to less then 40. We get one error for every place we use ``std::``, for example in `lib.rs`:
@@ -127,7 +126,7 @@ git reset --hard origin/rustconf24.nostd1
 Try "check" again and it works!
 
 ```bash
-cargo check --features alloc --no-default-features --target thumbv7m-none-eabi
+cargo check --no-default-features --target thumbv7m-none-eabi
 ```
 
 We confirm that native testing still works. (Cancel the test with `Ctrl-C` if you want to save time.)
@@ -151,7 +150,7 @@ Create a new sub-project for embedded testing.
 cargo new tests/embedded
 ```
 
-Edit `tests/embedded/Cargo.toml` so that it depends on your local project with "no default features" and "alloc". Also add dependencies for embedded code.
+Edit `tests/embedded/Cargo.toml` so that it depends on your local project with "no default features". Also add dependencies for embedded code.
 
 ```toml
 [package]
@@ -166,7 +165,7 @@ cortex-m-rt = "0.7.3"
 cortex-m-semihosting = "0.5.0"
 panic-halt = "0.2.0"
 # reference to local project
-range-set-blaze = { path = "../..", features = ["alloc"], default-features = false }
+range-set-blaze = { path = "../..", default-features = false }
 ```
 
 Edit file `tests/embedded/src/main.rs`:
@@ -196,17 +195,14 @@ const HEAP_SIZE: usize = 1024; // in bytes
 fn main() -> ! {
     unsafe { ALLOCATOR.init(cortex_m_rt::heap_start() as usize, HEAP_SIZE) }
 
-    // test goes here
+    // Test(s) goes here. Run only under emulation
     let range_set_blaze = RangeSetBlaze::from_iter([100, 103, 101, 102, -3, -4]);
     hprintln!("{:?}", range_set_blaze.to_string());
-
-    // exit QEMU/ NOTE do not run this on hardware; it can corrupt OpenOCD state
     if range_set_blaze.to_string() != "-4..=-3, 100..=103" {
         debug::exit(debug::EXIT_FAILURE);
     }
 
     debug::exit(debug::EXIT_SUCCESS);
-    loop {}
 }
 
 #[alloc_error_handler]
@@ -274,10 +270,10 @@ test_thumbv7m-none-eabi:
           target: thumbv7m-none-eabi
       - name: Install check stable and nightly
         run: |
-          cargo check --target thumbv7m-none-eabi --features alloc --no-default-features
+          cargo check --target thumbv7m-none-eabi --no-default-features
           rustup override set nightly
           rustup target add thumbv7m-none-eabi
-          cargo check --target thumbv7m-none-eabi --features alloc --no-default-features
+          cargo check --target thumbv7m-none-eabi --no-default-features
           sudo apt-get update && sudo apt-get install qemu qemu-system-arm
       - name: Test Embedded (in nightly)
         timeout-minutes: 1
@@ -296,3 +292,16 @@ categories = ["data-structures", "no-std", "wasm"]
 ```
 
 The spelling (`no_std` and `no-std`) is important. The maximum number of keywords is five; likewise, categories.
+
+<https://crates.io/categories/>
+<https://crates.io/keywords>
+
+* [Category no-std](https://crates.io/categories/no-std?sort=downloads) (6884)
+* [Category wasm](https://crates.io/categories/wasm?sort=downloads) (2026)
+* [Category no-std::no-alloc](https://crates.io/categories/no-std::no-alloc?sort=downloads) (581)
+* [Category embedded](https://crates.io/categories/embedded?sort=downloads) (3455)
+* [Keyword no_std](https://crates.io/keywords/no_std?sort=downloads) (1351)
+* [Keyword no-std](https://crates.io/keywords/no-std?sort=downloads) (1157)
+* [Keyword wasm](https://crates.io/keywords/wasm?sort=downloads) (1686)
+* [Keyword embedded](https://crates.io/keywords/embedded?sort=downloads) (925)
+* [Keyword webassembly](https://crates.io/keywords/webassembly?sort=downloads) (804)
